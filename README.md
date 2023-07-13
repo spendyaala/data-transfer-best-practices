@@ -34,3 +34,61 @@ If Redis or customer workload components communicate across multiple Regions usi
 In short, you may be always paying data transfer costs when you are migrating workloads to Redis on AWS.
 
 ![](images/dataxfer1.png)
+
+### Architecture Design Considerations:
+* If possible, deploy Redis Enterprise Cloud in the same Region as the customer business applications.
+* Zone mapping functionality seems to be not working anymore and is removed on AWS Flexible/Annual plans. Hence, for a given Region, even if you are deploying Redis Enterprise Cloud in the same region as your customer applications are, expect that the data transfer costs will be incurred.
+* Leverage private endpoints that Redis Enterprise Cloud publishes to connect Customer applications. VPC peering makes this happen. If you leverage Public Endpoints, you are routing the data over Internet and surely will incur data transfer costs.
+
+## Redis Enterprise Cloud as a non- hosted solution
+When Redis Enterprise Cloud is deployed as a non-hosted solution:
+1. Redis Enterprise Cloud is deployed in a Customer account.
+2. Redis control plane simply manages the Redis cluster within this customer account.
+
+All of the data is within customer AWS account and hence customer will pay data transfer costs based on how the networking topology is configured within their AWS accounts.
+![](images/dataxfer2.png)
+
+### Design considerations
+* Use vanilla, clean slate, empty  AWS sub accounts to exclusively provision Redis Enterprise Cloud resources. This will keep things clean and easy to monitor billing / costs incurred for your cloud resources.
+* Deploy Redis in the same region (ex: US East) and similar AZ (ex: us-east-1) as the business applications are running.
+* Leverage private endpoints that connects using VPC peering to  avoid data hops on the public internet.
+* If you are deploying A-A in multi regions, expect that per-GB charge for inter-region data transfer costs will be incurred.
+
+![](images/dataxfer3.png)
+
+![](images/dataxfer4.png)
+
+![](images/dataxfer5.png)
+
+![](images/dataxfer6.png)
+
+
+![](images/dataxfer7.png)
+
+
+![](images/dataxfer8.png)
+
+
+![](images/dataxfer9.png)
+
+
+![](images/dataxfer10.png)
+
+
+![](images/dataxfer11.png)
+
+![](images/dataxfer12.png)
+
+
+![](images/dataxfer13.png)
+
+
+![](images/dataxfer14.png)
+
+
+![](images/dataxfer15.png)
+
+
+![](images/dataxfer2.png)
+
+![](images/dataxfer2.png)
