@@ -120,21 +120,34 @@ If your customer is really worried about this, its worth to consider running a P
 
 ![](images/dataxfer10.png)
 
-* DFD
-![](images/dataxfer11.png)
+* After the POC, on the last day perhaps, run a report using AWS Cost Explorer.
 
+![](images/dataxfer11.png)
 ![](images/dataxfer12.png)
 
-
+Your report may look like this, giving you the granular details of the price breakdown.
 ![](images/dataxfer13.png)
 
+## Example Calculations
 
+### Example 1:
+* 200GB data size, HA and Replication required, Multi-AZ deployment with at least 25000 ops/sec with an average payload size of 1KB.
+* 25000 X 1024Bytes X 60 secs/min X 60mins/hr X 24 hrs/day = 2160GB/day  X 31days = 66960 GB/month
 ![](images/dataxfer14.png)
 
+### Example 2:
+* 200GB data size, Active – Active, HA and Replication required, Multi-AZ deployment with at least 25000 ops/sec with an average payload size of 1KB.
 
+* 25000 X 1KB X 60 secs/min X 60mins/hr X 24 hrs/day = 2160GB/day X 31 days = 66960 GB / month
 ![](images/dataxfer15.png)
 
+## Final words
+Like any other AWS implementations, Redis Enterprise Cloud deployment on AWS may also incur data transfer charges based on the source, destination, and amount of traffic, involved. Following are a few design considerations to keep in mind, while designing your solution architecture.
+* Always avoid routing traffic over the internet, whenever possible, especially when connecting to other AWS services. Instead enable VPC peering and use private endpoints. Same things holds good for Redis Enterprise Cloud database endpoints.
+* If your employing a Hybrid solution leveraging on-prem and cloud resources, preferably, use Direct Connect instead of the internet for sending data to on-premises networks.
+* Traffic that crosses an Availability Zone boundary typically incurs a data transfer charge. Use resources from the local Availability Zone whenever possible.
+* Traffic that crosses a Regional boundary will typically incur a data transfer charge. Avoid cross-Region data transfer unless your business case requires it.
+* Use the AWS Pricing Calculator to help estimate the data transfer costs for your solution.
+* Use a dashboard to better visualize data transfer charges. Here is a quick free workshop that goes in to the details more => ([Create Data Transfer Cost Analysis Dashboard :: AWS Well-Architected Labs](https://wellarchitectedlabs.com/cost/200_labs/200_enterprise_dashboards/3_create_data_transfer_cost_analysis/) ).
 
-![](images/dataxfer2.png)
-
-![](images/dataxfer2.png)
+Thank You.
