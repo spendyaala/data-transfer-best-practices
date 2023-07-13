@@ -79,11 +79,11 @@ In addition to intra-regional data transfer costs involved, you will certainly i
 You may also choose to deploy Redis in any of the following configurations or a combination of a few:
 
 * Semi migration:
-- You have your business applications running on-prem, but your data layer is migrated to Redis Enterprise Cloud.
+  - You have your business applications running on-prem, but your data layer is migrated to Redis Enterprise Cloud.
 * Active – Active:
-- You can have one Active Redis cluster on-prem and the other in the cloud
-- You can have both Redis clusters in the cloud
-- You can have one Redis cluster with one Cloud Service Provider (Ex: AWS) and the other with another Cloud Service Provider (Ex: GCP).
+  - You can have one Active Redis cluster on-prem and the other in the cloud
+  - You can have both Redis clusters in the cloud
+  - You can have one Redis cluster with one Cloud Service Provider (Ex: AWS) and the other with another Cloud Service Provider (Ex: GCP).
 
 AWS offers on-prem to cloud connectivity, using any of the following services:
 
