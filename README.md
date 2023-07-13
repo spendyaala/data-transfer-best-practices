@@ -1,5 +1,7 @@
 # Data Transfer Cost considerations for Redis Enterprise Cloud on AWS
 
+### Author : Srinivas Pendyala, Sr Cloud Solutions Architect, Redis Inc.
+
 ## Introduction
 Often times when we architect a solution using  Redis Enterprise Cloud  for a specific customer use case requirement, we tend to overlook the costs involved with data transfer operations when we bring the data in to Redis.  This document tries to help identify areas where we could incur data transfer costs while choosing deployment options for Redis Enterprise Cloud and help make Solution Design choices.
 
@@ -92,23 +94,33 @@ AWS offers on-prem to cloud connectivity, using any of the following services:
 
 Here is a generic architecture that represents a hybrid deployment scenario. The focus here is more on data transfer costs aspect represented visually. The customer apps on-prem can also be interchanged with Redis instances representing any of the above mentioned configurations.
 
-
-
 ![](images/dataxfer6.png)
 
+A Direct Connect gateway can also be used to share a Direct Connect across multiple Regions. When using a Direct Connect gateway, there will be outbound data charges based on the source Region and Direct Connect location.
 
 ![](images/dataxfer7.png)
 
+## How huge are these costs? When to worry and when not to?
+In most cases, these data transfer charges could be negligible but not always though. Its always important to give it a thought and consideration, before finalizing your Solution Design.
 
+If your customer is really worried about this, its worth to consider running a POC.
+
+## Recommended POC Process
+* Run a POC with the best representative workflow that they are planning to run in the Production.
+* Run the workload at its peak load for day or two.
+  - Collect the metrics for the workload
+  - What has been the peak memory used?
+  - What has been the average throughput?
 ![](images/dataxfer8.png)
 
+* Do a back-of-the-envelope calculations to roughly estimate the costs.
+* Use the AWS pricing calculator to calculate the costs.
 
 ![](images/dataxfer9.png)
 
-
 ![](images/dataxfer10.png)
 
-
+* DFD
 ![](images/dataxfer11.png)
 
 ![](images/dataxfer12.png)
