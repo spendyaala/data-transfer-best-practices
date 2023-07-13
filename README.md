@@ -54,11 +54,45 @@ All of the data is within customer AWS account and hence customer will pay data 
 * Leverage private endpoints that connects using VPC peering to  avoid data hops on the public internet.
 * If you are deploying A-A in multi regions, expect that per-GB charge for inter-region data transfer costs will be incurred.
 
+## Redis deployed with Single Zone Replication
+Single-zone replication implies that your database will have a primary (M1) and a replica (S1) shards are located in the same cloud zone (ex: Availability Zone 1) . If anything happens to the primary, the replica takes over and becomes the new primary.
+
+In this case, there are no data transfer charges are incurred, as the data that is getting replicated from the primary shard (M1) to Replica (S1) is still remaining with the same availability zone.
+
 ![](images/dataxfer3.png)
+
+## Redis deployed with Multi- Zone Replication
+Multi-zone replication implies that your database will have a primary (M1) and a replica (S1) shards are stored in the different cloud zones (ex: Availability Zone 1 and 2) . This means that your database can remain online even if an entire zone becomes unavailable.
+
+In this case, there are data transfer charges incurred, as the data that is getting replicated from the primary shard (M1) to Replica (S1) is crossing across the Availability Zones
 
 ![](images/dataxfer4.png)
 
+## Redis Active-Active deployed with a Multi- Region Replication
+With Active – Active CRDT deployments, you are choosing to run two Redis clusters across two different Regions (ex: US-East and Europe-West). A syncer continuously syncs between these two deployments and thus achieving an Active-Active deployment in place.
+
+In addition to intra-regional data transfer costs involved, you will certainly incur inter-regional data transfer costs too.
+
 ![](images/dataxfer5.png)
+
+## Redis Active-Active Hybrid or Multi-Cloud deployments
+You may also choose to deploy Redis in any of the following configurations or a combination of a few:
+
+* Semi migration:
+- You have your business applications running on-prem, but your data layer is migrated to Redis Enterprise Cloud.
+* Active – Active:
+- You can have one Active Redis cluster on-prem and the other in the cloud
+- You can have both Redis clusters in the cloud
+- You can have one Redis cluster with one Cloud Service Provider (Ex: AWS) and the other with another Cloud Service Provider (Ex: GCP).
+
+AWS offers on-prem to cloud connectivity, using any of the following services:
+
+* AWS Site-to-Site VPN
+* AWS Direct Connect
+
+Here is a generic architecture that represents a hybrid deployment scenario. The focus here is more on data transfer costs aspect represented visually. The customer apps on-prem can also be interchanged with Redis instances representing any of the above mentioned configurations.
+
+
 
 ![](images/dataxfer6.png)
 
